@@ -19,12 +19,27 @@ connect.then((db) =>
     .then((dish) =>
     {
         console.log(dish);
-        return Dishes.find({}).exec();//The exec will ensure that this is executed and that it will return a promise and so that promise will be returned so that it can then chain the method to the remaining ones.
+        return Dishes.findByIdAndUpdate(dish._id, {$set : {description : 'Updated test'},
+    },
+        {
+            new : "true"
+        }).exec();//The exec will ensure that this is executed and that it will return a promise and so that promise will be returned so that it can then chain the method to the remaining ones.
     })
-    .then((dishes) =>
+    .then((dish) =>
     {
-        console.log(dishes);
+        console.log(dish);
 
+        dish.comments.push({
+            rating : 4,
+            comment : 'I\'m getting sinking feeling!',
+            author : 'Jai'
+        });
+
+        return dish.save();
+    })
+    .then((dish) =>
+    {
+        console.log(dish);
         return Dishes.remove({});//remove all dishes from database
     })
     .then(() =>
