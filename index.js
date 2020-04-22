@@ -11,11 +11,11 @@ connect.then((db) =>
     console.log('Connected Correctly to server');
 
     //creating new dish
-    var newDish = Dishes({
-        name:'Uthappizza',
-        description : 'test'
-    });
-    newDish.save()//save method cause this value to saved and return a promise
+    //create method creates and save added dishes automaticly and return promise
+    Dishes.create({
+        name : 'Uthappizza',
+        description : "test"
+    })
     .then((dish) =>
     {
         console.log(dish);
